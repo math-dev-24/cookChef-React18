@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './assets/styles/index.sass';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ApiContext} from "./context/ApiContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+        <ApiContext.Provider value='https://restapi.fr/api/recipesMath'>
+            <App />
+        </ApiContext.Provider>
   </React.StrictMode>
 );
 

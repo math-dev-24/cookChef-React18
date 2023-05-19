@@ -1,0 +1,32 @@
+.recipe
+  border-radius: 20px
+  border: 1px solid #eee
+  cursor: pointer
+  height: 350px
+  width: 250px
+  margin: 20px
+
+  h3
+    font-weight: bold
+    padding-top: 10px
+    margin-bottom: 15px
+  &:hover
+    .recipeContent
+      color: #ff6348
+    .imageContainer img
+      transform: scale(1.1,1.1)
+
+.imageContainer
+  border-top-left-radius: 20px
+  border-top-right-radius: 20px
+  overflow: hidden
+  text-align: center
+  img
+    width: 100%
+    max-height: 200px
+    transition: all .3s
+
+
+.recipeContent
+  transition: all .3s
+  text-align: center

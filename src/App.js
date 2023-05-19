@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import styles from "./App.module.sass";
+import Content from "./pages/homePage/Content";
+import {useState} from "react";
+import AdminPage from "./pages/admin/admin";
 
-function App() {
+
+export default function App() {
+    const [page, setPage] = useState('homepage')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className={` bg-slate-100 flex flex-col ${styles.containerApp}`}>
+          <Header setPage={setPage} />
+          {page === 'homepage' && <Content />}
+          {page === "admin" && <AdminPage/>}
+          <Footer/>
+      </div>
   );
 }
 
-export default App;
+
