@@ -1,21 +1,22 @@
 import Recipe from "./components/Recipe/Recipe";
-import {useContext, useState} from "react";
-import {ApiContext} from "../../context/ApiContext";
+import { useState } from "react";
 import SearchBar from "./components/Search/search";
-import {useFetchData} from "../../hooks";
+import { useFetchRecipe } from "../../hooks";
+import { deleteRecipe as deleteR, updateRecipe as updateR } from "../../apis/recipes";
 
-export default function Content(){
+export default function Content() {
     const [filter, setFilter] = useState('')
     const [page, setPage] = useState(1)
-    const url = useContext(ApiContext)
-    const [[recipes, setRecipes], isLoading] = useFetchData(url, page)
+    const [[recipes, setRecipes], isLoading] = useFetchRecipe(page)
 
-    function updateRecipe(updatedRecipe){
-        setRecipes(recipes.map(r => r._id === updatedRecipe._id ? updatedRecipe : r))
+    async function updateRecipe(updatedRecipe) {
+        const savedRecipe = await updateR(updatedRecipe)
+        setRecipes(recipes.map(r => r._id === savedRecipe._id ? savedRecipe : r))
     }
 
-    function deleteRecipe(_id){
-        setRecipes(recipes.filter(r => r._id !== _id))
+    async function deleteRecipeById(_id) {
+        const recipeId = await deleteR(_id)
+        setRecipes(recipes.filter(r => r._id !== recipeId))
     }
 
     return (
@@ -28,12 +29,12 @@ export default function Content(){
                         <div className='flex flex-row flex-wrap items-center content-center'>
                             {
                                 isLoading ? <div className="text-sm py-10">Chargement...</div> :
-                                recipes.filter(r => r.title.toLowerCase().startsWith(filter)).map(r => (
-                                    <Recipe key={r._id} recipe={r} updateRecipe={updateRecipe} deleteRecipe={deleteRecipe}/>
-                                ))
+                                    recipes.filter(r => r.title.toLowerCase().startsWith(filter)).map(r => (
+                                        <Recipe key={r._id} recipe={r} updateRecipe={updateRecipe} deleteRecipe={deleteRecipeById} />
+                                    ))
                             }
                         </div>
-                        <div onClick={() => setPage(page+1)} className="bg-gray-500 text-white w-1/4 m-auto p-5 text-center rounded-lg cursor-pointer transition duration-300 hover:scale-x-105">
+                        <div onClick={() => setPage(page + 1)} className="bg-gray-500 text-white w-1/4 m-auto p-5 text-center rounded-lg cursor-pointer transition duration-300 hover:scale-x-105">
                             Charger plus de recette
                         </div>
                     </div>
