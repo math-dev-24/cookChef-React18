@@ -3,23 +3,26 @@ import Footer from "./components/Footer/Footer";
 import styles from "./App.module.sass";
 import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
-import { SeedRecipe} from './data/seed';
+import { SeedRecipe } from './data/seed';
 import { useFetchRecipe } from "./hooks";
 
 export default function App() {
 
     const [[recipes]] = useFetchRecipe(1)
-    if(!recipes){
+    if (!recipes) {
         SeedRecipe()
         SeedRecipe()
     }
-    
+
+
     return (
         <div className={` bg-slate-100 flex flex-col ${styles.containerApp}`}>
             <Header />
             <div className="flex-1">
                 <Suspense >
-                    <Outlet />
+                    <div className="flex-1">
+                        <Outlet />
+                    </div>
                 </Suspense>
             </div>
             <Footer />

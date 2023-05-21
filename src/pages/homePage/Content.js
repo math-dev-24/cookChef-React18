@@ -1,5 +1,5 @@
 import Recipe from "./components/Recipe/Recipe";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "./components/Search/search";
 import { useFetchRecipe } from "../../hooks";
 import { deleteRecipe as deleteR, updateRecipe as updateR } from "../../apis/recipes";
@@ -18,6 +18,10 @@ export default function Content() {
         const recipeId = await deleteR(_id)
         setRecipes(recipes.filter(r => r._id !== recipeId))
     }
+
+    useEffect(() => {
+        document.title = "CookChef | Home"
+    })
 
     return (
         <>

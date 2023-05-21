@@ -7,7 +7,7 @@ export default function RecipeCard({ recipe, deleteRecipe }) {
     }
 
     return (
-        <div className="bg-slate-50 container m-auto flex border m-2 rounded-xl overflow-hidden h-20">
+        <div className="bg-slate-50 container m-auto flex border my-3 drop-shadow hover:drop-shadow-none transition duration-300 rounded-xl overflow-hidden h-20">
             <img src={recipe.image} alt={recipe.title} className=" h-20 w-20" />
             <div className="font-bold m-1 flex-1">
                 {recipe.title}

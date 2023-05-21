@@ -9,6 +9,7 @@ const AdminRecipes = lazy(() => import('./pages/admin/pages/adminRecipes/AdminRe
 const AdminRecipesList = lazy(() => import('./pages/admin/pages/adminRecipesList/AdminRecipesList'))
 const AdminUsers = lazy(() => import('./pages/admin/pages/adminUsers/AdminUsers'))
 const AdminRecipesForm = lazy(() => import('./pages/admin/pages/adminRecipesForm/AdminRecipesForm'))
+const WishList = lazy(() => import('./pages/wishList/WishList'))
 
 export const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Content />
+            },
+            {
+                path: "wishlist",
+                element: <WishList />
             },
             {
                 path: "admin",
