@@ -3,7 +3,7 @@ import { getRecipes } from "../apis/recipes";
 
 
 export function useFetchRecipe(page) {
-    const [recipe, setRecipes] = useState([]);
+    const [recipes, setRecipes] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState([]);
 
@@ -34,5 +34,5 @@ export function useFetchRecipe(page) {
         return () => (cancel = true);
     }, [page]);
 
-    return [[recipe, setRecipes], isLoading, error];
+    return [[recipes, setRecipes], isLoading, error];
 }

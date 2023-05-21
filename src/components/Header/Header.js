@@ -14,7 +14,7 @@ export default function Header(){
                 <ul className="hidden md:flex">
                     <NavLink to="/admin" className="m-1 px-5 bg-orange-600 rounded-2xl cursor-pointer text-white flex flex-row items-center hover:bg-white hover:text-orange-600 transition duration-300 border hover:border-orange-600">
                         <i className="fa-solid fa-right-left mr-2"></i>
-                        Ajouter une recette
+                        Panel admin
                     </NavLink>
                     <NavLink className="m-1 px-5 bg-orange-600 rounded-2xl cursor-pointer text-white flex flex-row items-center hover:bg-white hover:text-orange-600 transition duration-300 border hover:border-orange-600">
                         <i className="fa-solid fa-heart mr-2"></i>

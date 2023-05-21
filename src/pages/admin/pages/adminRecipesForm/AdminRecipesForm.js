@@ -1,15 +1,18 @@
 import * as yup from "yup"
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {useContext} from "react";
-import {ApiContext} from "../../../context/ApiContext";
+import {createRecipe, updateRecipe} from "../../../../apis/index"
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 
-export default function AddRecipe(){
-    const BASE_URL = useContext(ApiContext)
+export default function AdminRecipesForm(){
+
+    const recipe = useLoaderData()
+    const navigate = useNavigate()
+
     const defaultValues = {
-        title: '',
-        image: ''
+        title: recipe ? recipe.title : '',
+        image: recipe ? recipe.image :''
     }
 
     const recipeSchema = yup.object({
@@ -17,23 +20,21 @@ export default function AddRecipe(){
         image: yup.string().required('Il faut renseigner l\'image').url('L\'image doit être un lien valide')
     })
 
-    const {formState: {errors, isSubmitting}, register, handleSubmit, reset, setError} = useForm({
+    const {formState: {errors, isSubmitting}, register, handleSubmit, reset, setError, clearErrors} = useForm({
         defaultValues,
         resolver: yupResolver(recipeSchema)
     })
 
     async function submit(values){
         try{
-            const response = await fetch(BASE_URL,{
-                method: 'POST',
-                headers: {"Content-type": "application/json"},
-                body : JSON.stringify(values)
-            })
-            if (response.ok){
-                reset(defaultValues)
+            clearErrors()
+            if(recipe){
+                updateRecipe({ ...values, _id: recipe._id})
+                navigate("/admin/recipes/list")
             }else{
-                setError('generic', {type:'generic', message: 'Il y a eu une erreur'})
+                await createRecipe(values)
             }
+            reset()
         }catch (e){
             setError('generic', {type:'generic', message: 'Il y a eu une erreur'})
         }
@@ -41,7 +42,7 @@ export default function AddRecipe(){
 
     return(
         <form onSubmit={handleSubmit(submit)} className="flex flex-col content-center items-center my-14 w-full">
-            <h3 className="text-xl mb-5">Ajouter une recette</h3>
+            <h3 className="text-xl mb-5">{recipe ? "Modification de la recette" : "Ajouter une recette"}</h3>
             <div className="flex flex-col">
                 <label htmlFor="title">Nom de la recette</label>
                 <input type="text" { ...register('title') } name="title" className="outline-0 p-1 border border-slate-300 rounded-lg m-1"/>

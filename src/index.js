@@ -2,16 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './assets/styles/index.sass';
 import reportWebVitals from './reportWebVitals';
-import {ApiContext} from "./context/ApiContext";
 import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <ApiContext.Provider value='https://restapi.fr/api/recipesMath'>
       <RouterProvider router={router} />
-      </ApiContext.Provider>
   </React.StrictMode>
 );
 
