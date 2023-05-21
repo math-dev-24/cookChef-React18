@@ -11,7 +11,7 @@ export function useFetchRecipe(page) {
         let cancel = false;
         async function fetchRecipes() {
             try {
-                setIsLoading(true);
+                page === 1 && setIsLoading(true);
                 const queryParam = new URLSearchParams();
                 if (page) {
                     queryParam.append('limit', 8);
