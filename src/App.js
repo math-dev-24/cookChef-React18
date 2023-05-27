@@ -9,11 +9,10 @@ import { useFetchRecipe } from "./hooks";
 export default function App() {
 
     const [[recipes]] = useFetchRecipe(1)
-    if (!recipes) {
+    if (recipes.length === 0) {
         SeedRecipe()
         SeedRecipe()
     }
-
 
     return (
         <div className={` bg-slate-100 flex flex-col ${styles.containerApp}`}>
