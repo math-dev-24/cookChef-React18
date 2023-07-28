@@ -30,7 +30,7 @@ export default function Content() {
                 <div className="flex-1 md:p-5 w-full bg-white rounded-2xl drop-shadow-lg">
                     <div>
                         <SearchBar setFilter={setFilter} />
-                        <div className='flex flex-row flex-wrap items-center content-center'>
+                        <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4'>
                             {
                                 isLoading ? <div className="text-sm py-10">Chargement...</div> :
                                     recipes.filter(r => r.title.toLowerCase().startsWith(filter)).map(r => (
